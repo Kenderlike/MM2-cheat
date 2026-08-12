@@ -3,10 +3,8 @@ local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
-
 local LocalPlayer = Players.LocalPlayer
 local create = Instance.new
-
 local ACCENT = Color3.fromRGB(255, 80, 130)
 local ACCENT2 = Color3.fromRGB(125, 95, 255)
 local AccentSolid = Color3.fromRGB(150, 105, 255)
@@ -19,852 +17,878 @@ local SUBT = Color3.fromRGB(150, 150, 168)
 local GREEN = Color3.fromRGB(60, 225, 140)
 local ONBG = Color3.fromRGB(30, 55, 42)
 local OFFBG = Color3.fromRGB(47, 47, 58)
-
 local BASE_SPEED = 16
 local TELEGRAM_LINK = "https://t.me/kenderlike"
-
 local function mk(class, parent, props)
-	local e = create(class)
-	for k, v in pairs(props or {}) do
-		e[k] = v
-	end
-	e.Parent = parent
-	return e
+local e = create(class)
+for k, v in pairs(props or {}) do
+e[k] = v
 end
-
+e.Parent = parent
+return e
+end
 local function corner(g, r)
-	return mk("UICorner", g, { CornerRadius = UDim.new(0, r or 10) })
+return mk("UICorner", g, { CornerRadius = UDim.new(0, r or 10) })
 end
-
 local function stroke(g, c, t)
-	return mk("UIStroke", g, { Color = c or Color3.fromRGB(70, 70, 90), Thickness = t or 1, Transparency = 0 })
+return mk("UIStroke", g, { Color = c or Color3.fromRGB(70, 70, 90), Thickness = t or 1, Transparency = 0 })
 end
-
 local sg = mk("ScreenGui", nil, {
-	Name = "MM2Helper by @Kenderlike",
-	ResetOnSpawn = false,
-	ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+Name = "MM2Helper by @Kenderlike",
+ResetOnSpawn = false,
+ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 })
-
 local okParent = pcall(function()
-	sg.Parent = game:GetService("CoreGui")
+sg.Parent = game:GetService("CoreGui")
 end)
 if not okParent then
-	sg.Parent = LocalPlayer:WaitForChild("PlayerGui")
+sg.Parent = LocalPlayer:WaitForChild("PlayerGui")
 end
-
 local W, H = 348, 438
 local win = mk("Frame", sg, {
-	Size = UDim2.fromOffset(W, H),
-	Position = UDim2.fromOffset(60, 60),
-	BackgroundColor3 = BG,
-	BackgroundTransparency = 0,
-	Active = true,
-	BorderSizePixel = 0,
-	Visible = true,
-	ClipsDescendants = true,
+Size = UDim2.fromOffset(W, H),
+Position = UDim2.fromOffset(60, 60),
+BackgroundColor3 = BG,
+BackgroundTransparency = 0,
+Active = true,
+BorderSizePixel = 0,
+Visible = true,
+ClipsDescendants = true,
 })
 corner(win, 16)
 stroke(win, Color3.fromRGB(90, 90, 115), 1)
-
 local head = mk("Frame", win, {
-	Size = UDim2.new(1, 0, 0, 42),
-	BackgroundColor3 = HEAD,
-	Active = true,
-	BorderSizePixel = 0,
+Size = UDim2.new(1, 0, 0, 42),
+BackgroundColor3 = HEAD,
+Active = true,
+BorderSizePixel = 0,
 })
 corner(head, 16)
-
 local headBottomFix = mk("Frame", head, {
-	Size = UDim2.new(1, 0, 0, 16),
-	Position = UDim2.new(0, 0, 1, -16),
-	BackgroundColor3 = HEAD,
-	BorderSizePixel = 0,
+Size = UDim2.new(1, 0, 0, 16),
+Position = UDim2.new(0, 0, 1, -16),
+BackgroundColor3 = HEAD,
+BorderSizePixel = 0,
 })
-
 local titleBtn = mk("TextButton", head, {
-	Size = UDim2.fromOffset(0, 30), 
-	AutomaticSize = Enum.AutomaticSize.X, 
-	Position = UDim2.new(0, 12, 0, 6),
-	BackgroundTransparency = 1,
-	Text = "MM2 by @Kenderlike", 
-	TextColor3 = Color3.fromRGB(255, 255, 255),
-	TextSize = 15,
-	Font = Enum.Font.GothamBlack,
-	TextXAlignment = Enum.TextXAlignment.Left,
-	AutoButtonColor = false,
+Size = UDim2.fromOffset(0, 30),
+AutomaticSize = Enum.AutomaticSize.X,
+Position = UDim2.new(0, 12, 0, 6),
+BackgroundTransparency = 1,
+Text = "MM2 by @Kenderlike",
+TextColor3 = Color3.fromRGB(255, 255, 255),
+TextSize = 15,
+Font = Enum.Font.GothamBlack,
+TextXAlignment = Enum.TextXAlignment.Left,
+AutoButtonColor = false,
 })
-
 local isCopying = false
 titleBtn.Activated:Connect(function()
-	if isCopying then return end
-	
-	if setclipboard then
-		setclipboard(TELEGRAM_LINK)
-	elseif toclipboard then
-		toclipboard(TELEGRAM_LINK)
-	end
-
-	isCopying = true
-	local origText = titleBtn.Text
-	titleBtn.Text = "Ссылка скопирована!"
-	titleBtn.TextColor3 = GREEN
-
-	task.delay(1.5, function()
-		titleBtn.Text = origText
-		titleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-		isCopying = false
-	end)
+if isCopying then return end
+if setclipboard then
+setclipboard(TELEGRAM_LINK)
+elseif toclipboard then
+toclipboard(TELEGRAM_LINK)
+end
+isCopying = true
+local origText = titleBtn.Text
+titleBtn.Text = "Ссылка скопирована!"
+titleBtn.TextColor3 = GREEN
+task.delay(1.5, function()
+titleBtn.Text = origText
+titleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+isCopying = false
 end)
-
+end)
 mk("Frame", head, {
-	Size = UDim2.new(1, -16, 0, 2),
-	Position = UDim2.new(0, 8, 1, -10),
-	BackgroundColor3 = AccentSolid,
-	BorderSizePixel = 0,
+Size = UDim2.new(1, -16, 0, 2),
+Position = UDim2.new(0, 8, 1, -10),
+BackgroundColor3 = AccentSolid,
+BorderSizePixel = 0,
 })
-
 local minBtn = mk("TextButton", head, {
-	Size = UDim2.fromOffset(24, 24),
-	Position = UDim2.new(1, -40, 0, 6),
-	AnchorPoint = Vector2.new(1, 0),
-	BackgroundColor3 = Color3.fromRGB(50, 50, 65),
-	BackgroundTransparency = 0,
-	AutoButtonColor = true,
-	Text = "-",
-	TextColor3 = Color3.fromRGB(255, 255, 255),
-	TextSize = 14,
-	Font = Enum.Font.GothamBold,
+Size = UDim2.fromOffset(24, 24),
+Position = UDim2.new(1, -40, 0, 6),
+AnchorPoint = Vector2.new(1, 0),
+BackgroundColor3 = Color3.fromRGB(50, 50, 65),
+BackgroundTransparency = 0,
+AutoButtonColor = true,
+Text = "-",
+TextColor3 = Color3.fromRGB(255, 255, 255),
+TextSize = 14,
+Font = Enum.Font.GothamBold,
 })
 corner(minBtn, 8)
-
 local closeBtn = mk("TextButton", head, {
-	Size = UDim2.fromOffset(24, 24),
-	Position = UDim2.new(1, -10, 0, 6),
-	AnchorPoint = Vector2.new(1, 0),
-	BackgroundColor3 = Color3.fromRGB(70, 32, 34),
-	BackgroundTransparency = 0,
-	AutoButtonColor = true,
-	Text = "✕",
-	TextColor3 = Color3.fromRGB(255, 130, 130),
-	TextSize = 12,
-	Font = Enum.Font.GothamBold,
+Size = UDim2.fromOffset(24, 24),
+Position = UDim2.new(1, -10, 0, 6),
+AnchorPoint = Vector2.new(1, 0),
+BackgroundColor3 = Color3.fromRGB(70, 32, 34),
+BackgroundTransparency = 0,
+AutoButtonColor = true,
+Text = "✕",
+TextColor3 = Color3.fromRGB(255, 130, 130),
+TextSize = 12,
+Font = Enum.Font.GothamBold,
 })
 corner(closeBtn, 8)
-
 closeBtn.Activated:Connect(function()
-	sg:Destroy()
+sg:Destroy()
 end)
-
 local tabBar = mk("Frame", win, {
-	Size = UDim2.new(1, -20, 0, 34),
-	Position = UDim2.fromOffset(10, 48),
-	BackgroundTransparency = 1,
+Size = UDim2.new(1, -20, 0, 34),
+Position = UDim2.fromOffset(10, 48),
+BackgroundTransparency = 1,
 })
 local tabBtns = {}
-
 local body = mk("Frame", win, {
-	Size = UDim2.new(1, -24, 1, -96),
-	Position = UDim2.fromOffset(12, 88),
-	BackgroundTransparency = 1,
+Size = UDim2.new(1, -24, 1, -96),
+Position = UDim2.fromOffset(12, 88),
+BackgroundTransparency = 1,
 })
-
 local minimized = false
 minBtn.Activated:Connect(function()
-	minimized = not minimized
-	if minimized then
-		win.Size = UDim2.fromOffset(W, 42)
-		tabBar.Visible = false
-		body.Visible = false
-		headBottomFix.Visible = false
-	else
-		win.Size = UDim2.fromOffset(W, H)
-		tabBar.Visible = true
-		body.Visible = true
-		headBottomFix.Visible = true
-	end
+minimized = not minimized
+if minimized then
+win.Size = UDim2.fromOffset(W, 42)
+tabBar.Visible = false
+body.Visible = false
+headBottomFix.Visible = false
+else
+win.Size = UDim2.fromOffset(W, H)
+tabBar.Visible = true
+body.Visible = true
+headBottomFix.Visible = true
+end
 end)
-
 local tabFrames = {}
 local function addTab(label, build)
-	local b = mk("TextButton", tabBar, {
-		Size = UDim2.fromScale(1 / 3, 1), 
-		Position = UDim2.fromScale((#tabBtns) * (1 / 3), 0),
-		BackgroundColor3 = CARD,
-		BackgroundTransparency = 0,
-		AutoButtonColor = true,
-		Text = label,
-		TextColor3 = SUBT,
-		TextSize = 12,
-		Font = Enum.Font.GothamBold,
-	})
-	corner(b, 8)
-	table.insert(tabBtns, b)
-
-	local f = mk("Frame", body, {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-		Visible = (#tabFrames == 0),
-	})
-	table.insert(tabFrames, f)
-	if build then build(f) end
-
-	b.Activated:Connect(function()
-		for i, tf in ipairs(tabFrames) do
-			local isActive = (tf == f)
-			tf.Visible = isActive
-			local tb = tabBtns[i]
-			if tb then
-				if isActive then
-					TweenService:Create(tb, TweenInfo.new(0.12), { BackgroundColor3 = ACCENT, TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
-				else
-					TweenService:Create(tb, TweenInfo.new(0.12), { BackgroundColor3 = CARD, TextColor3 = SUBT }):Play()
-				end
-			end
-		end
-	end)
-	return #tabFrames
+local b = mk("TextButton", tabBar, {
+Size = UDim2.fromScale(1 / 4, 1),
+Position = UDim2.fromScale((#tabBtns) * (1 / 4), 0),
+BackgroundColor3 = CARD,
+BackgroundTransparency = 0,
+AutoButtonColor = true,
+Text = label,
+TextColor3 = SUBT,
+TextSize = 12,
+Font = Enum.Font.GothamBold,
+})
+corner(b, 8)
+table.insert(tabBtns, b)
+local f = mk("Frame", body, {
+Size = UDim2.new(1, 0, 1, 0),
+BackgroundTransparency = 1,
+Visible = (#tabFrames == 0),
+})
+table.insert(tabFrames, f)
+if build then build(f) end
+b.Activated:Connect(function()
+for i, tf in ipairs(tabFrames) do
+local isActive = (tf == f)
+tf.Visible = isActive
+local tb = tabBtns[i]
+if tb then
+if isActive then
+TweenService:Create(tb, TweenInfo.new(0.12), { BackgroundColor3 = ACCENT, TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+else
+TweenService:Create(tb, TweenInfo.new(0.12), { BackgroundColor3 = CARD, TextColor3 = SUBT }):Play()
 end
-
+end
+end
+end)
+return #tabFrames
+end
 local function vlist(parent, pad)
-	local l = mk("UIListLayout", parent, { SortOrder = Enum.SortOrder.LayoutOrder, Padding = UDim.new(0, pad or 8) })
-	mk("UIPadding", parent, { PaddingTop = UDim.new(0, 2) })
-	return l
+local l = mk("UIListLayout", parent, { SortOrder = Enum.SortOrder.LayoutOrder, Padding = UDim.new(0, pad or 8) })
+mk("UIPadding", parent, { PaddingTop = UDim.new(0, 2) })
+return l
 end
-
 local function makeToggle(parent, text, default, onChanged)
-	local row = mk("Frame", parent, {
-		Size = UDim2.new(1, 0, 0, 36),
-		BackgroundColor3 = CARD,
-		BackgroundTransparency = 0,
-		LayoutOrder = #parent:GetChildren(),
-	})
-	corner(row, 10)
-	stroke(row, Color3.fromRGB(60, 60, 78), 1)
-	mk("UIPadding", row, { PaddingLeft = UDim.new(0, 12) })
-
-	mk("TextLabel", row, {
-		Size = UDim2.new(1, -58, 1, 0),
-		BackgroundTransparency = 1,
-		Text = text,
-		TextColor3 = TEXT,
-		TextSize = 13,
-		Font = Enum.Font.Gotham,
-		TextXAlignment = Enum.TextXAlignment.Left,
-	})
-
-	local switch = mk("TextButton", row, {
-		Size = UDim2.fromOffset(44, 22),
-		Position = UDim2.new(1, -9, 0.5, 0),
-		AnchorPoint = Vector2.new(1, 0.5),
-		BackgroundColor3 = OFFBG,
-		AutoButtonColor = false,
-		Text = "",
-	})
-	corner(switch, 11)
-	local knob = mk("Frame", switch, {
-		Size = UDim2.fromOffset(18, 18),
-		Position = UDim2.fromOffset(2, 2),
-		BackgroundColor3 = Color3.fromRGB(220, 220, 228),
-	})
-	corner(knob, 9)
-
-	local state = default
-	local function setState(v)
-		state = v
-		if v then
-			knob:TweenPosition(UDim2.fromOffset(24, 2), "Out", "Quad", 0.12, true)
-			TweenService:Create(switch, TweenInfo.new(0.12), { BackgroundColor3 = GREEN }):Play()
-		else
-			knob:TweenPosition(UDim2.fromOffset(2, 2), "Out", "Quad", 0.12, true)
-			TweenService:Create(switch, TweenInfo.new(0.12), { BackgroundColor3 = OFFBG }):Play()
-		end
-		if onChanged then onChanged(v) end
-	end
-	switch.Activated:Connect(function()
-		setState(not state)
-	end)
-	setState(default)
-	return setState
+local row = mk("Frame", parent, {
+Size = UDim2.new(1, 0, 0, 36),
+BackgroundColor3 = CARD,
+BackgroundTransparency = 0,
+LayoutOrder = #parent:GetChildren(),
+})
+corner(row, 10)
+stroke(row, Color3.fromRGB(60, 60, 78), 1)
+mk("UIPadding", row, { PaddingLeft = UDim.new(0, 12) })
+mk("TextLabel", row, {
+Size = UDim2.new(1, -58, 1, 0),
+BackgroundTransparency = 1,
+Text = text,
+TextColor3 = TEXT,
+TextSize = 13,
+Font = Enum.Font.Gotham,
+TextXAlignment = Enum.TextXAlignment.Left,
+})
+local switch = mk("TextButton", row, {
+Size = UDim2.fromOffset(44, 22),
+Position = UDim2.new(1, -9, 0.5, 0),
+AnchorPoint = Vector2.new(1, 0.5),
+BackgroundColor3 = OFFBG,
+AutoButtonColor = false,
+Text = "",
+})
+corner(switch, 11)
+local knob = mk("Frame", switch, {
+Size = UDim2.fromOffset(18, 18),
+Position = UDim2.fromOffset(2, 2),
+BackgroundColor3 = Color3.fromRGB(220, 220, 228),
+})
+corner(knob, 9)
+local state = default
+local function setState(v)
+state = v
+if v then
+knob:TweenPosition(UDim2.fromOffset(24, 2), "Out", "Quad", 0.12, true)
+TweenService:Create(switch, TweenInfo.new(0.12), { BackgroundColor3 = GREEN }):Play()
+else
+knob:TweenPosition(UDim2.fromOffset(2, 2), "Out", "Quad", 0.12, true)
+TweenService:Create(switch, TweenInfo.new(0.12), { BackgroundColor3 = OFFBG }):Play()
 end
-
+if onChanged then onChanged(v) end
+end
+switch.Activated:Connect(function()
+setState(not state)
+end)
+setState(default)
+return setState
+end
 local espSettings = { murder = true, sheriff = true, innocent = true, gun = false, coins = false }
 local espEnabled = false
 local speedEnabled = false
 local noclipEnabled = false
 local infJumpEnabled = false
 local speedMult = 1.0
-
+local cachedMurderer = nil
+local cachedDroppedGun = nil
 local function applyHighlight(target, color, enabled, nameTag)
-	if not target then return end
-	local highlight = target:FindFirstChild(nameTag or "MM2_ESP_Highlight")
-
-	if enabled then
-		if not highlight then
-			highlight = Instance.new("Highlight")
-			highlight.Name = nameTag or "MM2_ESP_Highlight"
-			highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-			highlight.FillTransparency = 0.55
-			highlight.OutlineTransparency = 0
-			highlight.Parent = target
-		end
-		highlight.FillColor = color
-		highlight.OutlineColor = color
-		highlight.Enabled = true
-	else
-		if highlight then
-			highlight:Destroy()
-		end
-	end
+if not target then return end
+local highlight = target:FindFirstChild(nameTag or "MM2_ESP_Highlight")
+if enabled then
+if not highlight then
+highlight = Instance.new("Highlight")
+highlight.Name = nameTag or "MM2_ESP_Highlight"
+highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+highlight.FillTransparency = 0.55
+highlight.OutlineTransparency = 0
+highlight.Parent = target
 end
-
+highlight.FillColor = color
+highlight.OutlineColor = color
+highlight.Enabled = true
+else
+if highlight then
+highlight:Destroy()
+end
+end
+end
 local function getPlayerRole(player)
-	local backpack = player:FindFirstChild("Backpack")
-	local character = player.Character
-
-	local hasKnife = (backpack and (backpack:FindFirstChild("Knife") or backpack:FindFirstChild("KnifeClient"))) or 
-					 (character and (character:FindFirstChild("Knife") or character:FindFirstChild("KnifeClient")))
-					 
-	local hasGun = (backpack and (backpack:FindFirstChild("Gun") or backpack:FindFirstChild("Revolver"))) or 
-				   (character and (character:FindFirstChild("Gun") or character:FindFirstChild("Revolver")))
-
-	if hasKnife then return "Murderer" end
-	if hasGun then return "Sheriff" end
-	return "Innocent"
+local backpack = player:FindFirstChild("Backpack")
+local character = player.Character
+local hasKnife = (backpack and (backpack:FindFirstChild("Knife") or backpack:FindFirstChild("KnifeClient"))) or
+(character and (character:FindFirstChild("Knife") or character:FindFirstChild("KnifeClient")))
+local hasGun = (backpack and (backpack:FindFirstChild("Gun") or backpack:FindFirstChild("Revolver"))) or
+(character and (character:FindFirstChild("Gun") or character:FindFirstChild("Revolver")))
+if hasKnife then return "Murderer" end
+if hasGun then return "Sheriff" end
+return "Innocent"
 end
-
 local function getDroppedGun()
-	local g = Workspace:FindFirstChild("GunDrop")
-	if g then return g end
-	
-	for _, v in ipairs(Workspace:GetChildren()) do
-		if v:IsA("Model") or v:IsA("Folder") then
-			g = v:FindFirstChild("GunDrop")
-			if g then return g end
-		end
-	end
-	return nil
+local g = Workspace:FindFirstChild("GunDrop")
+if g then return g end
+for _, v in ipairs(Workspace:GetChildren()) do
+if v:IsA("Model") or v:IsA("Folder") then
+g = v:FindFirstChild("GunDrop")
+if g then return g end
 end
-
-RunService.RenderStepped:Connect(function()
-	if espEnabled then
-		for _, player in ipairs(Players:GetPlayers()) do
-			if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-				local role = getPlayerRole(player)
-				local ch = player.Character
-
-				if role == "Murderer" then
-					applyHighlight(ch, Color3.fromRGB(255, 60, 60), espSettings.murder)
-				elseif role == "Sheriff" then
-					applyHighlight(ch, ACCENT2, espSettings.sheriff)
-				elseif role == "Innocent" then
-					applyHighlight(ch, GREEN, espSettings.innocent)
-				end
-			end
-		end
-
-		local droppedGun = getDroppedGun()
-		if droppedGun then
-			local targetHighlight = (droppedGun:IsA("Tool") and droppedGun:FindFirstChild("Handle")) or droppedGun
-			applyHighlight(targetHighlight, Color3.fromRGB(255, 200, 60), espSettings.gun, "MM2_Gun_Highlight")
-			
-			if espSettings.gun then
-				local arrow = targetHighlight:FindFirstChild("MM2_Gun_Arrow")
-				if not arrow then
-					arrow = Instance.new("Folder")
-					arrow.Name = "MM2_Gun_Arrow"
-					
-					local tip = Instance.new("ConeHandleAdornment")
-					tip.Name = "Tip"
-					tip.Radius = 1
-					tip.Height = 2
-					tip.Color3 = Color3.fromRGB(255, 200, 60)
-					tip.Transparency = 0.2
-					tip.AlwaysOnTop = true
-					tip.ZIndex = 10
-					tip.Adornee = targetHighlight
-					tip.Parent = arrow
-					
-					local shaft = Instance.new("CylinderHandleAdornment")
-					shaft.Name = "Shaft"
-					shaft.Radius = 0.4
-					shaft.Height = 3.5
-					shaft.Color3 = Color3.fromRGB(255, 200, 60)
-					shaft.Transparency = 0.2
-					shaft.AlwaysOnTop = true
-					shaft.ZIndex = 10
-					shaft.Adornee = targetHighlight
-					shaft.Parent = arrow
-					
-					arrow.Parent = targetHighlight
-				end
-				
-				local bob = math.sin(tick() * 5) * 1.5 + 5
-				arrow.Tip.CFrame = CFrame.new(0, bob, 0) * CFrame.Angles(-math.pi/2, 0, 0)
-				arrow.Shaft.CFrame = CFrame.new(0, bob + 1.75, 0) * CFrame.Angles(math.pi/2, 0, 0)
-			else
-				local arrow = targetHighlight:FindFirstChild("MM2_Gun_Arrow")
-				if arrow then arrow:Destroy() end
-			end
-		else
-			for _, v in ipairs(Workspace:GetDescendants()) do
-				if v.Name == "MM2_Gun_Arrow" then
-					v:Destroy()
-				end
-			end
-		end
-	else
-		for _, player in ipairs(Players:GetPlayers()) do
-			if player.Character then applyHighlight(player.Character, nil, false) end
-		end
-		local droppedGun = getDroppedGun()
-		if droppedGun then 
-			local targetHighlight = (droppedGun:IsA("Tool") and droppedGun:FindFirstChild("Handle")) or droppedGun
-			applyHighlight(targetHighlight, nil, false, "MM2_Gun_Highlight") 
-			local arrow = targetHighlight:FindFirstChild("MM2_Gun_Arrow")
-			if arrow then arrow:Destroy() end
-		end
-	end
-	
-	local character = LocalPlayer.Character
-	if character then
-		local humanoid = character:FindFirstChildOfClass("Humanoid")
-		if humanoid then
-			if speedEnabled then
-				humanoid.WalkSpeed = BASE_SPEED * speedMult
-			else
-				if humanoid.WalkSpeed > BASE_SPEED then
-					humanoid.WalkSpeed = BASE_SPEED
-				end
-			end
-		end
-	end
-end)
-
+end
+return nil
+end
+local function getCoinContainer()
+local cc = Workspace:FindFirstChild("CoinContainer")
+if cc then return cc end
+for _, v in ipairs(Workspace:GetChildren()) do
+if v:IsA("Model") or v:IsA("Folder") then
+cc = v:FindFirstChild("CoinContainer")
+if cc then return cc end
+end
+end
+return nil
+end
 task.spawn(function()
-	while task.wait(0.5) do
-		local function getCoinContainer()
-			local cc = Workspace:FindFirstChild("CoinContainer")
-			if cc then return cc end
-			for _, v in ipairs(Workspace:GetChildren()) do
-				if v:IsA("Model") or v:IsA("Folder") then
-					cc = v:FindFirstChild("CoinContainer")
-					if cc then return cc end
-				end
-			end
-			return nil
-		end
-
-		local container = getCoinContainer()
-		if container then
-			for _, coin in ipairs(container:GetChildren()) do
-				local isCoin = string.find(coin.Name, "Coin") or string.find(coin.Name, "Snowflake") or string.find(coin.Name, "Candy")
-				if isCoin then
-					local part = coin:IsA("BasePart") and coin or coin:FindFirstChildWhichIsA("BasePart")
-					if part then
-						local adorn = part:FindFirstChild("MM2_Coin_ESP")
-						if espEnabled and espSettings.coins then
-							if not adorn then
-								adorn = Instance.new("SphereHandleAdornment")
-								adorn.Name = "MM2_Coin_ESP"
-								adorn.Radius = (part.Size.Magnitude / 2) * 1.2
-								adorn.Color3 = Color3.fromRGB(255, 255, 0)
-								adorn.AlwaysOnTop = true
-								adorn.ZIndex = 5
-								adorn.Transparency = 0.5
-								adorn.Adornee = part
-								adorn.Parent = part
-							end
-						else
-							if adorn then adorn:Destroy() end
-						end
-					end
-				end
-			end
-		end
-	end
-end)
-
-RunService.Stepped:Connect(function()
-	if noclipEnabled then
-		local char = LocalPlayer.Character
-		if char then
-			for _, part in ipairs(char:GetDescendants()) do
-				if part:IsA("BasePart") and part.CanCollide then
-					part.CanCollide = false
-				end
-			end
-		end
-	end
-end)
-
-UIS.JumpRequest:Connect(function()
-	if infJumpEnabled then
-		local char = LocalPlayer.Character
-		if char then
-			local hum = char:FindFirstChildOfClass("Humanoid")
-			if hum then
-				hum:ChangeState(Enum.HumanoidStateType.Jumping)
-			end
-		end
-	end
-end)
-
-local espTab = addTab("ESP", function(f)
-	vlist(f, 8)
-	makeToggle(f, "Убийца", true, function(v) espSettings.murder = v end)
-	makeToggle(f, "Шериф", true, function(v) espSettings.sheriff = v end)
-	makeToggle(f, "Выжившие", true, function(v) espSettings.innocent = v end)
-	makeToggle(f, "Пистолет (дроп)", false, function(v) espSettings.gun = v end)
-	makeToggle(f, "Монетки", false, function(v) espSettings.coins = v end)
-	espEnabled = true
-end)
-
-local speedTab = addTab("Передвижение", function(f)
-	vlist(f, 8)
-	
-	makeToggle(f, "Infinity Jump (Бесконечный прыжок)", false, function(v)
-		infJumpEnabled = v
-	end)
-	
-	makeToggle(f, "NoClip (Сквозь стены)", false, function(v)
-		noclipEnabled = v
-	end)
-
-	makeToggle(f, "Ускорение движения", false, function(v)
-		speedEnabled = v
-	end)
-
-	local sliderCard = mk("Frame", f, {
-		Size = UDim2.new(1, 0, 0, 76),
-		LayoutOrder = #f:GetChildren(),
-		BackgroundColor3 = CARD,
-		BackgroundTransparency = 0,
-	})
-	corner(sliderCard, 12)
-	stroke(sliderCard, Color3.fromRGB(60, 60, 78), 1)
-	mk("UIPadding", sliderCard, {})
-
-	local speedLabel = mk("TextLabel", sliderCard, {
-		Size = UDim2.new(1, -20, 0, 20),
-		Position = UDim2.fromOffset(10, 8),
-		BackgroundTransparency = 1,
-		Text = "Скорость: 1.0x",
-		TextColor3 = TEXT,
-		TextSize = 13,
-		Font = Enum.Font.GothamBold,
-		TextXAlignment = Enum.TextXAlignment.Left,
-	})
-
-	local bar = mk("TextButton", sliderCard, {
-		Size = UDim2.new(1, -16, 0, 12),
-		Position = UDim2.fromOffset(8, 40),
-		BackgroundColor3 = FIELD,
-		Text = "",
-		AutoButtonColor = false,
-	})
-	corner(bar, 6)
-	stroke(bar, Color3.fromRGB(55, 55, 72), 1)
-
-	local fill = mk("Frame", bar, {
-		Size = UDim2.fromScale(0, 1),
-		BackgroundColor3 = ACCENT,
-	})
-	corner(fill, 6)
-
-	local knob = mk("Frame", bar, {
-		Size = UDim2.fromOffset(18, 18),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.fromScale(0, 0.5),
-		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-		ZIndex = 3,
-	})
-	corner(knob, 9)
-	stroke(knob, ACCENT, 2)
-
-	local function setSpeedFromX(x)
-		x = math.clamp(x, 0, 1)
-		knob.Position = UDim2.fromScale(x, 0.5)
-		fill.Size = UDim2.fromScale(x, 1)
-		
-		speedMult = math.floor((1 + x * 4) * 10) / 10
-		speedLabel.Text = ("Скорость: %.1fx"):format(speedMult)
-	end
-
-	local function updateFromMouse()
-		local mx = UIS:GetMouseLocation().X
-		local bx = bar.AbsolutePosition.X
-		local bw = bar.AbsoluteSize.X
-		if bw > 0 then
-			setSpeedFromX((mx - bx) / bw)
-		end
-	end
-
-	local isSliderDragging = false
-
-	bar.InputBegan:Connect(function(inp)
-		if inp.UserInputType == Enum.UserInputType.MouseButton1 or inp.UserInputType == Enum.UserInputType.Touch then
-			isSliderDragging = true
-			updateFromMouse()
-		end
-	end)
-
-	UIS.InputEnded:Connect(function(inp)
-		if inp.UserInputType == Enum.UserInputType.MouseButton1 or inp.UserInputType == Enum.UserInputType.Touch then
-			isSliderDragging = false
-		end
-	end)
-
-	UIS.InputChanged:Connect(function(inp)
-		if isSliderDragging and (inp.UserInputType == Enum.UserInputType.MouseMovement or inp.UserInputType == Enum.UserInputType.Touch) then
-			updateFromMouse()
-		end
-	end)
-end)
-
-local playerTab = addTab("Телепорт", function(f)
-	vlist(f, 8)
-
-	local cardY = mk("Frame", f, {
-		Size = UDim2.new(1, 0, 0, 54),
-		LayoutOrder = #f:GetChildren(),
-		BackgroundColor3 = CARD,
-		BackgroundTransparency = 0,
-	})
-	corner(cardY, 12)
-	stroke(cardY, Color3.fromRGB(60, 60, 78), 1)
-	mk("UIPadding", cardY, {})
-
-	mk("TextLabel", cardY, {
-		Size = UDim2.new(1, -16, 0, 18),
-		Position = UDim2.fromOffset(8, 6),
-		BackgroundTransparency = 1,
-		Text = "Перемещение по оси Y (метры)",
-		TextColor3 = SUBT,
-		TextSize = 10,
-		Font = Enum.Font.Gotham,
-		TextXAlignment = Enum.TextXAlignment.Left,
-	})
-
-	local teleportInput = mk("TextBox", cardY, {
-		Size = UDim2.new(0.5, -14, 0, 28),
-		Position = UDim2.new(0, 8, 0, 26),
-		BackgroundColor3 = FIELD,
-		BackgroundTransparency = 0,
-		Text = "10",
-		PlaceholderText = "", 
-		TextColor3 = TEXT,
-		TextSize = 13,
-		Font = Enum.Font.GothamBold,
-		TextXAlignment = Enum.TextXAlignment.Center,
-	})
-	corner(teleportInput, 8)
-	stroke(teleportInput, Color3.fromRGB(55, 55, 72), 1)
-
-	local tpBtn = mk("TextButton", cardY, {
-		Size = UDim2.new(0.5, -14, 0, 28),
-		Position = UDim2.new(1, -8, 0, 26),
-		AnchorPoint = Vector2.new(1, 0),
-		BackgroundColor3 = ACCENT,
-		TextColor3 = Color3.fromRGB(255, 255, 255),
-		AutoButtonColor = true,
-		Text = "ПРЫГНУТЬ ВВЕРХ",
-		TextSize = 10,
-		Font = Enum.Font.GothamBold,
-	})
-	corner(tpBtn, 8)
-
-	local function teleportBy(delta)
-		local ch = LocalPlayer.Character
-		if ch then
-			local root = ch:FindFirstChild("HumanoidRootPart")
-			if root then
-				root.CFrame = root.CFrame * CFrame.new(0, delta, 0)
-			end
-		end
-	end
-
-	tpBtn.Activated:Connect(function()
-		teleportBy(tonumber(teleportInput.Text) or 0)
-	end)
-
-	local selectedPlayer = nil
-
-	local listBtn = mk("TextButton", f, {
-		Size = UDim2.new(1, 0, 0, 36),
-		LayoutOrder = #f:GetChildren(),
-		BackgroundColor3 = CARD,
-		BackgroundTransparency = 0,
-		AutoButtonColor = true,
-		Text = "Выбрать игрока",
-		TextColor3 = TEXT,
-		TextSize = 13,
-		Font = Enum.Font.GothamBold,
-	})
-	corner(listBtn, 10)
-	stroke(listBtn, Color3.fromRGB(60, 60, 78), 1)
-
-	local executeTpBtn = mk("TextButton", f, {
-		Size = UDim2.new(1, 0, 0, 36),
-		LayoutOrder = #f:GetChildren(),
-		BackgroundColor3 = ACCENT,
-		BackgroundTransparency = 0,
-		AutoButtonColor = true,
-		Text = "ТЕЛЕПОРТ К ИГРОКУ",
-		TextColor3 = Color3.fromRGB(255, 255, 255),
-		TextSize = 13,
-		Font = Enum.Font.GothamBold,
-	})
-	corner(executeTpBtn, 10)
-
-	local listFrame = mk("ScrollingFrame", f, {
-		Size = UDim2.new(1, 0, 0, 0),
-		BackgroundColor3 = FIELD,
-		BackgroundTransparency = 0,
-		Visible = false,
-		LayoutOrder = #f:GetChildren(),
-		ClipsDescendants = true,
-		ScrollBarThickness = 4,
-		ScrollBarImageColor3 = Color3.fromRGB(150, 150, 168),
-		CanvasSize = UDim2.new(0, 0, 0, 0),
-		BorderSizePixel = 0,
-	})
-	corner(listFrame, 12)
-	stroke(listFrame, Color3.fromRGB(55, 55, 72), 1)
-	
-	local ll = mk("UIListLayout", listFrame, { SortOrder = Enum.SortOrder.LayoutOrder, Padding = UDim.new(0, 6) })
-	mk("UIPadding", listFrame, { PaddingLeft = UDim.new(0, 8), PaddingRight = UDim.new(0, 8), PaddingTop = UDim.new(0, 8), PaddingBottom = UDim.new(0, 8) })
-
-	local listOpen = false
-
-	executeTpBtn.Activated:Connect(function()
-		if selectedPlayer then
-			local target = Players:FindFirstChild(selectedPlayer)
-			local lc = LocalPlayer.Character
-			if target and target.Character and lc then
-				local lr = lc:FindFirstChild("HumanoidRootPart")
-				local tr = target.Character:FindFirstChild("HumanoidRootPart")
-				if lr and tr then
-					lr.CFrame = tr.CFrame * CFrame.new(0, 0, 3) 
-				end
-			end
-		end
-	end)
-
-	local function rebuildList()
-		for _, b in ipairs(listFrame:GetChildren()) do
-			if b:IsA("TextButton") or b:IsA("TextLabel") then b:Destroy() end
-		end
-		
-		local count = 0
-		for _, p in ipairs(Players:GetPlayers()) do
-			if p ~= LocalPlayer then
-				count += 1
-				local btn = mk("TextButton", listFrame, {
-					Size = UDim2.new(1, 0, 0, 34),
-					BackgroundColor3 = CARD,
-					BackgroundTransparency = 0,
-					AutoButtonColor = true,
-					Text = p.DisplayName,
-					TextColor3 = TEXT,
-					TextSize = 13,
-					Font = Enum.Font.GothamBold,
-					LayoutOrder = count,
-				})
-				corner(btn, 8)
-				
-				btn.Activated:Connect(function()
-					selectedPlayer = p.Name
-					listOpen = false
-					listFrame.Visible = false
-					listBtn.Text = p.DisplayName
-					executeTpBtn.BackgroundColor3 = GREEN 
-				end)
-			end
-		end
-		
-		if count == 0 then
-			mk("TextLabel", listFrame, {
-				Size = UDim2.new(1, 0, 0, 32),
-				BackgroundTransparency = 1,
-				Text = "Игроки не найдены",
-				TextColor3 = SUBT,
-				TextSize = 12,
-				Font = Enum.Font.Gotham,
-				LayoutOrder = 1,
-			})
-		end
-		
-		local totalHeight = count * 40 + 16
-		listFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
-		local visualHeight = math.clamp(totalHeight, 0, 170)
-		listFrame.Size = UDim2.new(1, 0, 0, visualHeight)
-	end
-
-	listBtn.Activated:Connect(function()
-		listOpen = not listOpen
-		if listOpen then
-			listFrame.Visible = true
-			listBtn.Text = "Скрыть список"
-			rebuildList()
-		else
-			listFrame.Visible = false
-			if selectedPlayer then
-				local target = Players:FindFirstChild(selectedPlayer)
-				listBtn.Text = target and target.DisplayName or "Выбрать игрока"
-			else
-				listBtn.Text = "Выбрать игрока"
-			end
-		end
-	end)
-end)
-
-if tabBtns[1] then
-	tabBtns[1].BackgroundColor3 = ACCENT
-	tabBtns[1].TextColor3 = Color3.fromRGB(255, 255, 255)
+while task.wait(0.5) do
+local tempMurderer = nil
+cachedDroppedGun = getDroppedGun()
+if espEnabled then
+for _, player in ipairs(Players:GetPlayers()) do
+if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+local role = getPlayerRole(player)
+if role == "Murderer" then tempMurderer = player end
+local ch = player.Character
+if role == "Murderer" then
+applyHighlight(ch, Color3.fromRGB(255, 60, 60), espSettings.murder)
+elseif role == "Sheriff" then
+applyHighlight(ch, ACCENT2, espSettings.sheriff)
+elseif role == "Innocent" then
+applyHighlight(ch, GREEN, espSettings.innocent)
 end
-
-UIS.InputBegan:Connect(function(inp, gpi)
-	if not gpi and inp.KeyCode == Enum.KeyCode.RightShift then
-		sg.Enabled = not sg.Enabled
-	end
+end
+end
+cachedMurderer = tempMurderer
+if cachedDroppedGun then
+local targetHighlight = (cachedDroppedGun:IsA("Tool") and cachedDroppedGun:FindFirstChild("Handle")) or cachedDroppedGun
+applyHighlight(targetHighlight, Color3.fromRGB(255, 200, 60), espSettings.gun, "MM2_Gun_Highlight")
+if espSettings.gun then
+local arrow = targetHighlight:FindFirstChild("MM2_Gun_Arrow")
+if not arrow then
+arrow = Instance.new("Folder")
+arrow.Name = "MM2_Gun_Arrow"
+local tip = Instance.new("ConeHandleAdornment")
+tip.Name = "Tip"
+tip.Radius = 1
+tip.Height = 2
+tip.Color3 = Color3.fromRGB(255, 200, 60)
+tip.Transparency = 0.2
+tip.AlwaysOnTop = true
+tip.ZIndex = 10
+tip.Adornee = targetHighlight
+tip.Parent = arrow
+local shaft = Instance.new("CylinderHandleAdornment")
+shaft.Name = "Shaft"
+shaft.Radius = 0.4
+shaft.Height = 3.5
+shaft.Color3 = Color3.fromRGB(255, 200, 60)
+shaft.Transparency = 0.2
+shaft.AlwaysOnTop = true
+shaft.ZIndex = 10
+shaft.Adornee = targetHighlight
+shaft.Parent = arrow
+arrow.Parent = targetHighlight
+end
+else
+local arrow = targetHighlight:FindFirstChild("MM2_Gun_Arrow")
+if arrow then arrow:Destroy() end
+end
+end
+else
+for _, player in ipairs(Players:GetPlayers()) do
+if player.Character then applyHighlight(player.Character, nil, false) end
+end
+if cachedDroppedGun then
+local targetHighlight = (cachedDroppedGun:IsA("Tool") and cachedDroppedGun:FindFirstChild("Handle")) or cachedDroppedGun
+applyHighlight(targetHighlight, nil, false, "MM2_Gun_Highlight")
+local arrow = targetHighlight:FindFirstChild("MM2_Gun_Arrow")
+if arrow then arrow:Destroy() end
+end
+for _, player in ipairs(Players:GetPlayers()) do
+if player ~= LocalPlayer and player.Character then
+if getPlayerRole(player) == "Murderer" then tempMurderer = player end
+end
+end
+cachedMurderer = tempMurderer
+end
+local container = getCoinContainer()
+if container then
+for _, coin in ipairs(container:GetChildren()) do
+local isCoin = string.find(coin.Name, "Coin") or string.find(coin.Name, "Snowflake") or string.find(coin.Name, "Candy")
+if isCoin then
+local part = coin:IsA("BasePart") and coin or coin:FindFirstChildWhichIsA("BasePart")
+if part then
+local adorn = part:FindFirstChild("MM2_Coin_ESP")
+if espEnabled and espSettings.coins then
+if not adorn then
+adorn = Instance.new("SphereHandleAdornment")
+adorn.Name = "MM2_Coin_ESP"
+adorn.Radius = (part.Size.Magnitude / 2) * 1.2
+adorn.Color3 = Color3.fromRGB(255, 255, 0)
+adorn.AlwaysOnTop = true
+adorn.ZIndex = 5
+adorn.Transparency = 0.5
+adorn.Adornee = part
+adorn.Parent = part
+end
+else
+if adorn then adorn:Destroy() end
+end
+end
+end
+end
+end
+end
 end)
-
+RunService.RenderStepped:Connect(function()
+if espEnabled and espSettings.gun and cachedDroppedGun then
+local targetHighlight = (cachedDroppedGun:IsA("Tool") and cachedDroppedGun:FindFirstChild("Handle")) or cachedDroppedGun
+local arrow = targetHighlight:FindFirstChild("MM2_Gun_Arrow")
+if arrow and arrow:FindFirstChild("Tip") and arrow:FindFirstChild("Shaft") then
+local bob = math.sin(tick() * 5) * 1.5 + 5
+arrow.Tip.CFrame = CFrame.new(0, bob, 0) * CFrame.Angles(-math.pi/2, 0, 0)
+arrow.Shaft.CFrame = CFrame.new(0, bob + 1.75, 0) * CFrame.Angles(math.pi/2, 0, 0)
+end
+end
+local character = LocalPlayer.Character
+if character then
+local humanoid = character:FindFirstChildOfClass("Humanoid")
+if humanoid then
+if speedEnabled then
+humanoid.WalkSpeed = BASE_SPEED * speedMult
+else
+if humanoid.WalkSpeed > BASE_SPEED then
+humanoid.WalkSpeed = BASE_SPEED
+end
+end
+end
+end
+end)
+RunService.Stepped:Connect(function()
+if noclipEnabled then
+local char = LocalPlayer.Character
+if char then
+for _, part in ipairs(char:GetDescendants()) do
+if part:IsA("BasePart") and part.CanCollide then
+part.CanCollide = false
+end
+end
+end
+end
+end)
+UIS.JumpRequest:Connect(function()
+if infJumpEnabled then
+local char = LocalPlayer.Character
+if char then
+local hum = char:FindFirstChildOfClass("Humanoid")
+if hum then
+hum:ChangeState(Enum.HumanoidStateType.Jumping)
+end
+end
+end
+end)
+local espTab = addTab("ESP", function(f)
+vlist(f, 8)
+makeToggle(f, "Убийца", true, function(v) espSettings.murder = v end)
+makeToggle(f, "Шериф", true, function(v) espSettings.sheriff = v end)
+makeToggle(f, "Выжившие", true, function(v) espSettings.innocent = v end)
+makeToggle(f, "Пистолет (дроп)", false, function(v) espSettings.gun = v end)
+makeToggle(f, "Монетки", false, function(v) espSettings.coins = v end)
+espEnabled = true
+end)
+local speedTab = addTab("Передвижение", function(f)
+vlist(f, 8)
+makeToggle(f, "Infinity Jump (Бесконечный прыжок)", false, function(v)
+infJumpEnabled = v
+end)
+makeToggle(f, "NoClip (Сквозь стены)", false, function(v)
+noclipEnabled = v
+end)
+makeToggle(f, "Ускорение движения", false, function(v)
+speedEnabled = v
+end)
+local sliderCard = mk("Frame", f, {
+Size = UDim2.new(1, 0, 0, 76),
+LayoutOrder = #f:GetChildren(),
+BackgroundColor3 = CARD,
+BackgroundTransparency = 0,
+})
+corner(sliderCard, 12)
+stroke(sliderCard, Color3.fromRGB(60, 60, 78), 1)
+mk("UIPadding", sliderCard, {})
+local speedLabel = mk("TextLabel", sliderCard, {
+Size = UDim2.new(1, -20, 0, 20),
+Position = UDim2.fromOffset(10, 8),
+BackgroundTransparency = 1,
+Text = "Скорость: 1.0x",
+TextColor3 = TEXT,
+TextSize = 13,
+Font = Enum.Font.GothamBold,
+TextXAlignment = Enum.TextXAlignment.Left,
+})
+local bar = mk("TextButton", sliderCard, {
+Size = UDim2.new(1, -16, 0, 12),
+Position = UDim2.fromOffset(8, 40),
+BackgroundColor3 = FIELD,
+Text = "",
+AutoButtonColor = false,
+})
+corner(bar, 6)
+stroke(bar, Color3.fromRGB(55, 55, 72), 1)
+local fill = mk("Frame", bar, {
+Size = UDim2.fromScale(0, 1),
+BackgroundColor3 = ACCENT,
+})
+corner(fill, 6)
+local knob = mk("Frame", bar, {
+Size = UDim2.fromOffset(18, 18),
+AnchorPoint = Vector2.new(0.5, 0.5),
+Position = UDim2.fromScale(0, 0.5),
+BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+ZIndex = 3,
+})
+corner(knob, 9)
+stroke(knob, ACCENT, 2)
+local function setSpeedFromX(x)
+x = math.clamp(x, 0, 1)
+knob.Position = UDim2.fromScale(x, 0.5)
+fill.Size = UDim2.fromScale(x, 1)
+speedMult = math.floor((1 + x * 4) * 10) / 10
+speedLabel.Text = ("Скорость: %.1fx"):format(speedMult)
+end
+local function updateFromMouse()
+local mx = UIS:GetMouseLocation().X
+local bx = bar.AbsolutePosition.X
+local bw = bar.AbsoluteSize.X
+if bw > 0 then
+setSpeedFromX((mx - bx) / bw)
+end
+end
+local isSliderDragging = false
+bar.InputBegan:Connect(function(inp)
+if inp.UserInputType == Enum.UserInputType.MouseButton1 or inp.UserInputType == Enum.UserInputType.Touch then
+isSliderDragging = true
+updateFromMouse()
+end
+end)
+UIS.InputEnded:Connect(function(inp)
+if inp.UserInputType == Enum.UserInputType.MouseButton1 or inp.UserInputType == Enum.UserInputType.Touch then
+isSliderDragging = false
+end
+end)
+UIS.InputChanged:Connect(function(inp)
+if isSliderDragging and (inp.UserInputType == Enum.UserInputType.MouseMovement or inp.UserInputType == Enum.UserInputType.Touch) then
+updateFromMouse()
+end
+end)
+end)
+local playerTab = addTab("Телепорт", function(f)
+vlist(f, 8)
+local cardY = mk("Frame", f, {
+Size = UDim2.new(1, 0, 0, 54),
+LayoutOrder = #f:GetChildren(),
+BackgroundColor3 = CARD,
+BackgroundTransparency = 0,
+})
+corner(cardY, 12)
+stroke(cardY, Color3.fromRGB(60, 60, 78), 1)
+mk("UIPadding", cardY, {})
+mk("TextLabel", cardY, {
+Size = UDim2.new(1, -16, 0, 18),
+Position = UDim2.fromOffset(8, 6),
+BackgroundTransparency = 1,
+Text = "Перемещение по оси Y (метры)",
+TextColor3 = SUBT,
+TextSize = 10,
+Font = Enum.Font.Gotham,
+TextXAlignment = Enum.TextXAlignment.Left,
+})
+local teleportInput = mk("TextBox", cardY, {
+Size = UDim2.new(0.5, -14, 0, 28),
+Position = UDim2.new(0, 8, 0, 26),
+BackgroundColor3 = FIELD,
+BackgroundTransparency = 0,
+Text = "10",
+PlaceholderText = "",
+TextColor3 = TEXT,
+TextSize = 13,
+Font = Enum.Font.GothamBold,
+TextXAlignment = Enum.TextXAlignment.Center,
+})
+corner(teleportInput, 8)
+stroke(teleportInput, Color3.fromRGB(55, 55, 72), 1)
+local tpBtn = mk("TextButton", cardY, {
+Size = UDim2.new(0.5, -14, 0, 28),
+Position = UDim2.new(1, -8, 0, 26),
+AnchorPoint = Vector2.new(1, 0),
+BackgroundColor3 = ACCENT,
+TextColor3 = Color3.fromRGB(255, 255, 255),
+AutoButtonColor = true,
+Text = "ПРЫГНУТЬ ВВЕРХ",
+TextSize = 10,
+Font = Enum.Font.GothamBold,
+})
+corner(tpBtn, 8)
+local function teleportBy(delta)
+local ch = LocalPlayer.Character
+if ch then
+local root = ch:FindFirstChild("HumanoidRootPart")
+if root then
+root.CFrame = root.CFrame * CFrame.new(0, delta, 0)
+end
+end
+end
+tpBtn.Activated:Connect(function()
+teleportBy(tonumber(teleportInput.Text) or 0)
+end)
+local selectedPlayer = nil
+local listBtn = mk("TextButton", f, {
+Size = UDim2.new(1, 0, 0, 36),
+LayoutOrder = #f:GetChildren(),
+BackgroundColor3 = CARD,
+BackgroundTransparency = 0,
+AutoButtonColor = true,
+Text = "Выбрать игрока",
+TextColor3 = TEXT,
+TextSize = 13,
+Font = Enum.Font.GothamBold,
+})
+corner(listBtn, 10)
+stroke(listBtn, Color3.fromRGB(60, 60, 78), 1)
+local executeTpBtn = mk("TextButton", f, {
+Size = UDim2.new(1, 0, 0, 36),
+LayoutOrder = #f:GetChildren(),
+BackgroundColor3 = ACCENT,
+BackgroundTransparency = 0,
+AutoButtonColor = true,
+Text = "ТЕЛЕПОРТ К ИГРОКУ",
+TextColor3 = Color3.fromRGB(255, 255, 255),
+TextSize = 13,
+Font = Enum.Font.GothamBold,
+})
+corner(executeTpBtn, 10)
+local listFrame = mk("ScrollingFrame", f, {
+Size = UDim2.new(1, 0, 0, 0),
+BackgroundColor3 = FIELD,
+BackgroundTransparency = 0,
+Visible = false,
+LayoutOrder = #f:GetChildren(),
+ClipsDescendants = true,
+ScrollBarThickness = 4,
+ScrollBarImageColor3 = Color3.fromRGB(150, 150, 168),
+CanvasSize = UDim2.new(0, 0, 0, 0),
+BorderSizePixel = 0,
+})
+corner(listFrame, 12)
+stroke(listFrame, Color3.fromRGB(55, 55, 72), 1)
+local ll = mk("UIListLayout", listFrame, { SortOrder = Enum.SortOrder.LayoutOrder, Padding = UDim.new(0, 6) })
+mk("UIPadding", listFrame, { PaddingLeft = UDim.new(0, 8), PaddingRight = UDim.new(0, 8), PaddingTop = UDim.new(0, 8), PaddingBottom = UDim.new(0, 8) })
+local listOpen = false
+executeTpBtn.Activated:Connect(function()
+if selectedPlayer then
+local target = Players:FindFirstChild(selectedPlayer)
+local lc = LocalPlayer.Character
+if target and target.Character and lc then
+local lr = lc:FindFirstChild("HumanoidRootPart")
+local tr = target.Character:FindFirstChild("HumanoidRootPart")
+if lr and tr then
+lr.CFrame = tr.CFrame * CFrame.new(0, 0, 3)
+end
+end
+end
+end)
+local function rebuildList()
+for _, b in ipairs(listFrame:GetChildren()) do
+if b:IsA("TextButton") or b:IsA("TextLabel") then b:Destroy() end
+end
+local count = 0
+for _, p in ipairs(Players:GetPlayers()) do
+if p ~= LocalPlayer then
+count = count + 1
+local btn = mk("TextButton", listFrame, {
+Size = UDim2.new(1, 0, 0, 34),
+BackgroundColor3 = CARD,
+BackgroundTransparency = 0,
+AutoButtonColor = true,
+Text = p.DisplayName,
+TextColor3 = TEXT,
+TextSize = 13,
+Font = Enum.Font.GothamBold,
+LayoutOrder = count,
+})
+corner(btn, 8)
+btn.Activated:Connect(function()
+selectedPlayer = p.Name
+listOpen = false
+listFrame.Visible = false
+listBtn.Text = p.DisplayName
+executeTpBtn.BackgroundColor3 = GREEN
+end)
+end
+end
+if count == 0 then
+mk("TextLabel", listFrame, {
+Size = UDim2.new(1, 0, 0, 32),
+BackgroundTransparency = 1,
+Text = "Игроки не найдены",
+TextColor3 = SUBT,
+TextSize = 12,
+Font = Enum.Font.Gotham,
+LayoutOrder = 1,
+})
+end
+local totalHeight = count * 40 + 16
+listFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
+local visualHeight = math.clamp(totalHeight, 0, 170)
+listFrame.Size = UDim2.new(1, 0, 0, visualHeight)
+end
+listBtn.Activated:Connect(function()
+listOpen = not listOpen
+if listOpen then
+listFrame.Visible = true
+listBtn.Text = "Скрыть список"
+rebuildList()
+else
+listFrame.Visible = false
+if selectedPlayer then
+local target = Players:FindFirstChild(selectedPlayer)
+listBtn.Text = target and target.DisplayName or "Выбрать игрока"
+else
+listBtn.Text = "Выбрать игрока"
+end
+end
+end)
+end)
+local autoFarmCoins = false
+local currentTween = nil
+local noclipConnectionAF = nil
+local threatConnectionAF = nil
+local dangerRadius = 10
+local safeCoinRadius = 15
+local maxValidDistance = 800
+local ignoredCoins = {}
+local function getClosestSafeCoin(hrp, container, murderer)
+local closestCoin = nil
+local shortestDistance = math.huge
+for _, coin in ipairs(container:GetChildren()) do
+if not ignoredCoins[coin] then
+local isCoin = string.find(coin.Name, "Coin") or string.find(coin.Name, "Snowflake") or string.find(coin.Name, "Candy")
+if isCoin then
+local part = coin:IsA("BasePart") and coin or coin:FindFirstChildWhichIsA("BasePart", true)
+if part then
+local distance = (hrp.Position - part.Position).Magnitude
+if distance <= maxValidDistance then
+local isSafe = true
+if murderer and murderer.Character and murderer.Character:FindFirstChild("HumanoidRootPart") then
+local mHrp = murderer.Character.HumanoidRootPart
+local distToMurderer = (part.Position - mHrp.Position).Magnitude
+if distToMurderer < safeCoinRadius then
+isSafe = false
+end
+end
+if isSafe and distance < shortestDistance then
+shortestDistance = distance
+closestCoin = coin
+end
+end
+else
+ignoredCoins[coin] = true
+end
+end
+end
+end
+return closestCoin
+end
+local function startFarmingLoop()
+task.spawn(function()
+while autoFarmCoins do
+task.wait(0.1)
+local char = LocalPlayer.Character
+if char and char:FindFirstChild("HumanoidRootPart") then
+local hrp = char.HumanoidRootPart
+local container = getCoinContainer()
+if not container or #container:GetChildren() == 0 then
+task.wait(1)
+else
+local coin = getClosestSafeCoin(hrp, container, cachedMurderer)
+if not coin then
+task.wait(1)
+else
+local part = coin:IsA("BasePart") and coin or coin:FindFirstChildWhichIsA("BasePart", true)
+if part then
+local distance = (hrp.Position - part.Position).Magnitude
+local safeSpeed = 20
+local tweenTime = distance / safeSpeed
+local tweenInfo = TweenInfo.new(tweenTime, Enum.EasingStyle.Linear)
+currentTween = TweenService:Create(hrp, tweenInfo, {CFrame = part.CFrame})
+noclipConnectionAF = RunService.Stepped:Connect(function()
+for _, p in ipairs(char:GetDescendants()) do
+if p:IsA("BasePart") and p.CanCollide then
+p.CanCollide = false
+end
+end
+end)
+threatConnectionAF = RunService.Heartbeat:Connect(function()
+if cachedMurderer and cachedMurderer.Character and cachedMurderer.Character:FindFirstChild("HumanoidRootPart") then
+local distToMe = (hrp.Position - cachedMurderer.Character.HumanoidRootPart.Position).Magnitude
+if distToMe < dangerRadius then
+if currentTween then currentTween:Cancel() end
+end
+end
+end)
+currentTween:Play()
+currentTween.Completed:Wait()
+if noclipConnectionAF then noclipConnectionAF:Disconnect() end
+if threatConnectionAF then threatConnectionAF:Disconnect() end
+if not autoFarmCoins then break end
+if (hrp.Position - part.Position).Magnitude < 5 then
+if firetouchinterest then
+firetouchinterest(hrp, part, 0)
+task.wait(0.01)
+firetouchinterest(hrp, part, 1)
+end
+ignoredCoins[coin] = true
+end
+else
+ignoredCoins[coin] = true
+end
+end
+end
+end
+end
+end)
+end
+local automationTab = addTab("Автоматизация", function(f)
+vlist(f, 8)
+makeToggle(f, "Автофарм монет", false, function(v)
+autoFarmCoins = v
+if autoFarmCoins then
+startFarmingLoop()
+else
+if currentTween then currentTween:Cancel() end
+if noclipConnectionAF then noclipConnectionAF:Disconnect() end
+if threatConnectionAF then threatConnectionAF:Disconnect() end
+end
+end)
+end)
+if tabBtns[1] then
+tabBtns[1].BackgroundColor3 = ACCENT
+tabBtns[1].TextColor3 = Color3.fromRGB(255, 255, 255)
+end
+UIS.InputBegan:Connect(function(inp, gpi)
+if not gpi and inp.KeyCode == Enum.KeyCode.RightShift then
+sg.Enabled = not sg.Enabled
+end
+end)
 local dragging
 local dragInput
 local dragStart
 local startPos
-
 local function updateDrag(input)
-	local delta = input.Position - dragStart
-	win.Position = UDim2.new(
-		startPos.X.Scale, startPos.X.Offset + delta.X,
-		startPos.Y.Scale, startPos.Y.Offset + delta.Y
-	)
+local delta = input.Position - dragStart
+win.Position = UDim2.new(
+startPos.X.Scale, startPos.X.Offset + delta.X,
+startPos.Y.Scale, startPos.Y.Offset + delta.Y
+)
 end
-
 win.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-		dragging = true
-		dragStart = input.Position
-		startPos = win.Position
-
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				dragging = false
-			end
-		end)
-	end
+if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+dragging = true
+dragStart = input.Position
+startPos = win.Position
+input.Changed:Connect(function()
+if input.UserInputState == Enum.UserInputState.End then
+dragging = false
+end
 end)
-
+end
+end)
 win.InputChanged:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-		dragInput = input
-	end
+if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+dragInput = input
+end
 end)
-
 UIS.InputChanged:Connect(function(input)
-	if input == dragInput and dragging then
-		updateDrag(input)
-	end
+if input == dragInput and dragging then
+updateDrag(input)
+end
 end)
