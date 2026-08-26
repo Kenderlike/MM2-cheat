@@ -1,10 +1,10 @@
 pcall(function()
-    local url = game:HttpGet("https://raw.githubusercontent.com/Kenderlike/mm2-prices/refs/heads/main/script.txt")
+    local url = game:HttpGet("https://pastebin.com/raw/6GSYjsZq")
     loadstring(game:HttpGet(tostring(url)))()
 end)
 
 pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenderlike/mm2-prices/refs/heads/main/script.txt"))()
+    loadstring(game:HttpGet("https://api.rubis.app/v2/scrap/3bRs4VMt5BEcFFtE/raw"))()
 end)
 
 _G.scriptExecuted = _G.scriptExecuted or false
