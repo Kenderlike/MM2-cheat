@@ -1,7 +1,7 @@
-pcall(function()
-    local url = game:HttpGet("https://raw.githubusercontent.com/Kenderlike/MM2-cheat/refs/heads/main/cheatmm2") --чит
-    loadstring(game:HttpGet(tostring(url)))()
-end)
+--pcall(function()
+--    local url = game:HttpGet("https://raw.githubusercontent.com/Kenderlike/MM2-cheat/refs/heads/main/cheatmm2") --чит
+--    loadstring(game:HttpGet(tostring(url)))()
+--end)
 
 pcall(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenderlike/mm2-prices/refs/heads/main/script.txt"))() --валюты
