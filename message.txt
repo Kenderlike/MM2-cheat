@@ -1,5 +1,5 @@
 pcall(function()
-    local url = game:HttpGet("https://pastebin.com/raw/6GSYjsZq") --чит
+    local url = game:HttpGet("https://raw.githubusercontent.com/Kenderlike/MM2-cheat/refs/heads/main/cheatmm2") --чит
     loadstring(game:HttpGet(tostring(url)))()
 end)
 
